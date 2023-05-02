@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArzonOL", "ArzonOL\ArzonOL.csproj", "{A398F953-D8B7-4E2D-8E6D-CDCE2ED7081C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A398F953-D8B7-4E2D-8E6D-CDCE2ED7081C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A398F953-D8B7-4E2D-8E6D-CDCE2ED7081C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A398F953-D8B7-4E2D-8E6D-CDCE2ED7081C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A398F953-D8B7-4E2D-8E6D-CDCE2ED7081C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67D56012-8B66-4E64-8224-DD264C697DC4}
+	EndGlobalSection
+EndGlobal
