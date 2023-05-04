@@ -7,6 +7,6 @@ public class UserEntity : IdentityUser
     public ICollection<BaseProductEntity>? Products { get; set; }
     public ICollection<ProductVoterEntity>? Voters { get; set; }
     public ICollection<CartEntity>? Carts { get; set; }
-    public ICollection<WishListEntity>? WishLists { get; set; }
+    public ICollection<WishListEntity>? WishLists { get; set; } // kak notification
     public string? Role { get; set; }
 }

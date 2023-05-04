@@ -1,6 +1,7 @@
 using ArzonOL.Data;
 using ArzonOL.Repositories;
 using ArzonOL.Repositories.Interfaces;
+using GuessingGameApi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 
