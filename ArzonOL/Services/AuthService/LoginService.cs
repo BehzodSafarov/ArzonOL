@@ -112,6 +112,8 @@ public class LoginService : ILoginService
             _logger.LogWarning("User not found in database");
             return null!;
         }
+
+        return _signInManager.SignOutAsync();
     }
 
     public bool ValidateJwtToken(string token)
