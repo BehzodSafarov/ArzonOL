@@ -21,8 +21,8 @@ public class BaseProductEntity : BaseEntity
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public ICollection<ProductVoterEntity>? Voters { get; set; }
-    public long BoughtCount { get; set; }
-    public Guid? ProductCategoryApproachId { get; set; }
+    public long BoughtCount { get; set; } //  sotib olinganlar soni
+    public Guid? ProductCategoryApproachId { get; set; } 
     public ProductCategoryApproachEntity? ProductCategoryApproach { get; set; }
     public Guid CardId { get; set; }
     public CartEntity? Cart { get; set; }

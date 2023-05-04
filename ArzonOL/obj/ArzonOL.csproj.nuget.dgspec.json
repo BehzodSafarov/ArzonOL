@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
+    "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
   },
   "projects": {
-    "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
+    "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "projectUniqueName": "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
         "projectName": "ArzonOL",
-        "projectPath": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
-        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\obj\\",
+        "projectPath": "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "packagesPath": "C:\\Users\\Assalomu Alaykum\\.nuget\\packages\\",
+        "outputPath": "e:\\ArzonOL\\ArzonOL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Assalomu Alaykum\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
