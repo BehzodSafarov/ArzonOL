@@ -1,6 +1,6 @@
 namespace ArzonOL.Entities;
 
-public class ProductVoter : BaseEntity
+public class ProductVoterEntity : BaseEntity
 {
     public int Vote { get; set; }
     public string? Comment { get; set; }

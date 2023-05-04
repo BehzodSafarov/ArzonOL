@@ -20,11 +20,8 @@ public class BaseProductEntity : BaseEntity
     public string? PhoneNumber { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public ICollection<ProductVoter>? Voters { get; set; }
+    public ICollection<ProductVoterEntity>? Voters { get; set; }
     public long BoughtCount { get; set; }
-    [ForeignKey(nameof(Merchant))]
-    public string? MerchantId { get; set; }
-    public MerchandEntity? Merchant { get; set; }
     public Guid? ProductCategoryApproachId { get; set; }
     public ProductCategoryApproachEntity? ProductCategoryApproach { get; set; }
     public Guid CardId { get; set; }
