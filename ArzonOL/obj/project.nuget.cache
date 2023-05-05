@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WyKayNs01YNkt/qm7jJH3YF3k2aav2mEPD79bzO40RG9GnpBY4gd7uwyy4x6xNwvU52/F1VanLZQSGH01jCVjA==",
+  "dgSpecHash": "mM38vjldmuKDa5hA3InHPW3Y3mvfXwOaxex249X+ojFceKe89Lqt/auXuyXlfFXvWSiZlZJu0fyE/sDUviEaxw==",
   "success": true,
-  "projectFilePath": "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+  "projectFilePath": "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Assalomu Alaykum\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Assalomu Alaykum\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

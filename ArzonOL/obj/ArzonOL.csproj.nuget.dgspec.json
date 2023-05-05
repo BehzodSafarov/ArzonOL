@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
+    "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
   },
   "projects": {
-    "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
+    "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "projectUniqueName": "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
         "projectName": "ArzonOL",
-        "projectPath": "e:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "projectPath": "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
         "packagesPath": "C:\\Users\\Assalomu Alaykum\\.nuget\\packages\\",
-        "outputPath": "e:\\ArzonOL\\ArzonOL\\obj\\",
+        "outputPath": "E:\\ArzonOL\\ArzonOL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Assalomu Alaykum\\AppData\\Roaming\\NuGet\\NuGet.Config",
