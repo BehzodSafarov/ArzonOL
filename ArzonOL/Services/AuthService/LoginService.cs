@@ -45,10 +45,15 @@ public class LoginService : ILoginService
        };
        
        var tokenHandler = new JwtSecurityTokenHandler();
+
        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
+       var issuer = _configuration.GetSection("Jwt")["Issuer"];
+       var audience = _configuration.GetSection("Jwt")["Audience"];
 
        var tokenDescriptor = new SecurityTokenDescriptor
        {
+           Issuer = issuer,
+           Audience = audience,
            Subject = new ClaimsIdentity(claims),
            Expires = DateTime.UtcNow.AddMinutes(10),
            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
@@ -58,62 +63,80 @@ public class LoginService : ILoginService
        return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
     }
 
-    public ValueTask<string> LogInAsync(string username, string password)
+    public async Task<string> LogInAsync(string username, string password)
     {
         _logger.LogInformation("Logging in user {username}", username);
 
         if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             _logger.LogWarning("Username or password is empty");
-            return new ValueTask<string>(string.Empty);
+            return string.Empty;
         }
 
-        var identityUser = _userManager.CheckPasswordAsync(new UserEntity { UserName = username }, password);
+        var existUser = await _userManager.FindByNameAsync(username);
+        
+        if(existUser is null)
+        {
+            _logger.LogInformation("User didn't found");
+            return string.Empty;
+        }
 
-        if(identityUser.Result == false)
+        var identityUser = await _userManager.CheckPasswordAsync(existUser!, password);
+
+        if(identityUser == false)    
         {
             _logger.LogWarning("Username or password is incorrect");
-            return new ValueTask<string>(string.Empty);
+            return string.Empty;
         }
 
-        var user = _userManager.FindByLoginAsync(username, password);
+        var user = await _userManager.FindByNameAsync(username);
 
-        if(user.Result == null)
+        if(user == null)
         {
             _logger.LogWarning("User not found in database");
-            return new ValueTask<string>(string.Empty);
+            return string.Empty;
         }
 
-        var roles = _userManager.GetRolesAsync(user.Result);
+        var roles = await _userManager.GetRolesAsync(user);
         
-        if(roles.Result.Count == 0)
+        if(roles.Count == 0)
         {
             _logger.LogWarning("User has no roles");
-            return new ValueTask<string>(string.Empty);
+            return string.Empty;
         }
 
-        return new ValueTask<string>(CreateJwtToken(username, password, roles.Result[0]));
+        return CreateJwtToken(username, password, roles[0]);
     }
 
-    public Task LogOutAsync(string username, string password)
+    public async Task<IdentityResult> LogOutAsync(string username, string password)
     {
         _logger.LogInformation("Logging out user {username}", username);
 
         if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             _logger.LogWarning("Username or password is empty");
-            return null!;
+            return IdentityResult.Failed(new IdentityError{Code = "Logout", Description = "Username yoki password bo'sh"});
         }
-
-        var identityUser = _userManager.FindByLoginAsync(username, password);
-
-        if(identityUser.Result == null)
+        
+        try
         {
-            _logger.LogWarning("User not found in database");
-            return null!;
-        }
+            var identityUser = await _userManager.FindByNameAsync(username);
+            
+            if(identityUser is null)
+            return IdentityResult.Failed(new IdentityError{Code = "Logout", Description = "Bunday user yuq"});
 
-        return _signInManager.SignOutAsync();
+            await _userManager.DeleteAsync(identityUser);
+            
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User {username} logged out", username);
+
+            return IdentityResult.Success;
+        }
+        catch(Exception e)
+        {
+          _logger.LogInformation(e.Message);
+          throw new Exception(e.Message);
+        }
     }
 
     public bool ValidateJwtToken(string token)
@@ -134,11 +157,18 @@ public class LoginService : ILoginService
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
+                ValidateIssuer = true,
+                ValidateAudience = true,
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
 
+            if(validatedToken == null)
+            {
+                _logger.LogWarning("Token validation failed");
+                return false;
+            }
+
+            _logger.LogInformation("Token validation successful");
             return true;
         }
         catch(Exception ex)

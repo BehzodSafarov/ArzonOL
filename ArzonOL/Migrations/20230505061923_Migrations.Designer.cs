@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArzonOL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230503160326_Migrations")]
+    [Migration("20230505061923_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />
@@ -291,9 +291,6 @@ namespace ArzonOL.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
