@@ -80,3 +80,4 @@ D:\Work\ArzonOL\ArzonOL\ArzonOL\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.E
 D:\Work\ArzonOL\ArzonOL\ArzonOL\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 D:\Work\ArzonOL\ArzonOL\ArzonOL\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Work\ArzonOL\ArzonOL\ArzonOL\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+D:\Work\ArzonOL\ArzonOL\ArzonOL\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

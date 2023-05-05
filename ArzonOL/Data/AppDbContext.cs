@@ -13,4 +13,5 @@ public class AppDbContext : IdentityDbContext<UserEntity>
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
+
 }
