@@ -10,8 +10,8 @@ public class AppDbContext : IdentityDbContext<UserEntity>
     public DbSet<CartEntity>? Carts { get; set; }
     public DbSet<WishListEntity>? WishLists { get; set; }
     public DbSet<ProductVoterEntity>? ProductVoters { get; set; }
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
+    
+    //agar o'xshasa qo'y soyamiz.
 
 }
