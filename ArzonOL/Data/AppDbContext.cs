@@ -12,6 +12,7 @@ public class AppDbContext : IdentityDbContext<UserEntity>
     public DbSet<ProductVoterEntity>? ProductVoters { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
+        // comment
     }
 
 }
