@@ -21,6 +21,37 @@ public class RegisterService : IRegisterService
         _logger = logger;
         _roleManager = roleManager;
     }
+
+    public async Task<IdentityResult> ChangePasswordAsync(string username, string oldPassword, string newPassword)
+    {
+        _logger.LogInformation("Changing password");
+        
+        try
+        {
+            var existUser = await _userManager.FindByNameAsync(username);
+            
+            if(existUser is null)
+            return IdentityResult.Failed(new IdentityError{Code = "PasswordChange", Description = "This user didn't not found"});
+
+            var checkedPassword = await _userManager.CheckPasswordAsync(existUser!, oldPassword);
+
+            if(checkedPassword)
+            return IdentityResult.Failed(new IdentityError{Code = "PasswordChange", Description = "Your passwor is not found"});
+            
+            var changetPasswordResult = await _userManager.ChangePasswordAsync(existUser, oldPassword, newPassword);
+
+            if(!changetPasswordResult.Succeeded)
+             return IdentityResult.Failed(new IdentityError{Code = "PasswordChange", Description = changetPasswordResult.Errors.ToString()!});
+
+             return IdentityResult.Success;
+        }
+        catch(Exception e)
+        {
+            _logger.LogInformation(e.Message);
+            throw new Exception(e.Message);
+        }
+    }
+
     public async Task<IdentityResult> RegisterAsync(string username, string password, string role, string email)
     {
         _logger.LogInformation("Registering user {username}", username);

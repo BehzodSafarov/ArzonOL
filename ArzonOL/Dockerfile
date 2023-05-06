@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["ArzonOL/ArzonOL.csproj", "ArzonOL/"]
-RUN dotnet restore "ArzonOL/ArzonOL.csproj"
+COPY ["ArzonOL.csproj", "ArzonOL"]
+RUN dotnet restore "ArzonOL.csproj"
 COPY . .
 WORKDIR "/src/ArzonOL"
 RUN dotnet build "ArzonOL.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ArzonOL.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ArzonOL.csproj" -c Release -o /app/publish /p:UseAppHost=true
 
 FROM base AS final
 WORKDIR /app
