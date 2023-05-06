@@ -10,6 +10,7 @@ public class UnitOfWork : IUnitOfWork
     public IProductMediaRepository ProductMediaRepository  { get; }
     public IProductRepository ProductRepository  { get; }
     public IUserRepository UserRepository  { get; }
+    public ICategoryRepository CategoryRepository { get; }
 
     private readonly AppDbContext _context;
 
@@ -21,6 +22,7 @@ public class UnitOfWork : IUnitOfWork
         ProductMediaRepository = new ProductMediaRepository(_context);
         ProductRepository = new ProductRepository(_context);
         UserRepository = new UserRepository(_context);
+        CategoryRepository = new CategoryRepository(_context);
     }
 
     public void Dispose()

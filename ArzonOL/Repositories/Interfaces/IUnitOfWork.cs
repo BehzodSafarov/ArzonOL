@@ -7,5 +7,6 @@ public interface IUnitOfWork : IDisposable
     IProductMediaRepository ProductMediaRepository { get; }
     IProductRepository ProductRepository { get; }
     IUserRepository UserRepository { get; }
+    ICategoryRepository CategoryRepository { get; }
     Task<int> SaveAsync();
 }
