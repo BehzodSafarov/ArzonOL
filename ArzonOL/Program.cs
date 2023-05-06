@@ -65,7 +65,7 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
         .AddRoleManager<RoleManager<IdentityRole>>()
         .AddSignInManager<SignInManager<UserEntity>>()
         .AddDefaultTokenProviders();
-
+        
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
