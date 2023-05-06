@@ -5,11 +5,11 @@ namespace ArzonOL.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public ICategoryApproachRepository? CategoryApproachRepository { get; }
-    public IVoterRepository? VoterRepository  { get; }
-    public IProductMediaRepository? ProductMediaRepository  { get; }
-    public IProductRepository? ProductRepository  { get; }
-    public IUserRepository? UserRepository  { get; }
+    public ICategoryApproachRepository CategoryApproachRepository { get; }
+    public IVoterRepository VoterRepository  { get; }
+    public IProductMediaRepository ProductMediaRepository  { get; }
+    public IProductRepository ProductRepository  { get; }
+    public IUserRepository UserRepository  { get; }
 
     private readonly AppDbContext _context;
 
