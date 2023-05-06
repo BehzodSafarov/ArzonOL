@@ -11,13 +11,11 @@ public class AuthController : ControllerBase
 {
     private readonly ILoginService _loginService;
     private readonly IRegisterService _registerService;
-    private readonly PasswordValidator<IdentityUser> _passwordValidator;
 
-    public AuthController(ILoginService loginService, IRegisterService registerService, PasswordValidator<IdentityUser> passwordValidator)
+    public AuthController(ILoginService loginService, IRegisterService registerService)
     {
         _loginService = loginService;
         _registerService = registerService;
-        _passwordValidator = passwordValidator;
     }
 
     [HttpPost("login")]
@@ -33,12 +31,7 @@ public class AuthController : ControllerBase
 
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(RegisterDto registerDto)
-    {
-        var validatePasswordResult = await _passwordValidator.ValidateAsync(null, null, registerDto.Password);
-
-        if(!validatePasswordResult.Succeeded)
-        return BadRequest(validatePasswordResult.Errors);
-        
+    {   
         var result = await _registerService.RegisterAsync(registerDto.UserName!, registerDto.Password!, "User", registerDto.Email!);
 
         if (!result.Succeeded)

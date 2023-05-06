@@ -1,6 +1,6 @@
 using ArzonOL.Exceptions;
 
-namespace GuessingGameApi.Middlewares;
+namespace ArzonOL.Middlewares;
 
 public class ErrorHandlerMiddleware
 {

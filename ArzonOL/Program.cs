@@ -7,7 +7,7 @@ using ArzonOL.Services.AuthService;
 using ArzonOL.Services.AuthService.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using GuessingGameApi.Middlewares;
+using ArzonOL.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
