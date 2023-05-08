@@ -12,29 +12,38 @@ public class InitializeDataService
         var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger<InitializeDataService>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        
-        logger.LogInformation("Begined Adding default roles");
-        var roles = config.GetSection("Identity:Roles").Get<List<string>>();
-         
-        foreach (var role in roles!)
+     
+        try
         {
-            logger.LogInformation("This role "+ role);
-            try
+            logger.LogInformation("Begined Adding default roles");
+            var roles = config.GetSection("Identity:Roles").Get<List<string>>();
+            
+            foreach (var role in roles!)
             {
-               if( await roleManager.FindByNameAsync(role) is null)
-               await roleManager.CreateAsync(new IdentityRole(role));
+                logger.LogInformation("This role "+ role);
+                try
+                {
+                if( await roleManager.FindByNameAsync(role) is null)
+                await roleManager.CreateAsync(new IdentityRole(role));
 
-               logger.LogInformation("Role created with name "+ role);
+                logger.LogInformation("Role created with name "+ role);
+                }
+                catch(Exception e)
+                {
+                logger.LogInformation("Failed Creating role with name "+ role);
+                throw new Exception(e.Message);
+                }
             }
-            catch(Exception e)
-            {
-               logger.LogInformation("Failed Creating role with name "+ role);
-               throw new Exception(e.Message);
-            }
+        
+        logger.LogInformation("Ended creating roles");
+        roleManager.Dispose();
+            
         }
-       
-       logger.LogInformation("Ended creating roles");
-       roleManager.Dispose();
+        catch (System.Exception e)
+        {
+            
+            throw new Exception(e.Message);
+        }
     }
 
     public static async Task CreateDefaultAdmin(IApplicationBuilder app)
@@ -111,7 +120,7 @@ public class InitializeDataService
 
         if(newUser is null)
         {
-            logger.LogInformation("Admin is not found frim apsettings");
+            logger.LogInformation("User is not found from apsettings");
             return;
         }
         
@@ -126,7 +135,7 @@ public class InitializeDataService
 
                 if(!createUserResult.Succeeded)
                 {
-                    logger.LogInformation("Admin is not created with name "+ user.UserName);
+                    logger.LogInformation("User is not created with name "+ user.UserName);
                     return;
                 }
 

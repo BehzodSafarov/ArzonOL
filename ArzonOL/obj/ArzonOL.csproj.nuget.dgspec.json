@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[7.0.2, )"
             },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
             "Microsoft.Entityframeworkcore": {
               "target": "Package",
               "version": "[7.0.5, )"

@@ -1,4 +1,5 @@
 using ArzonOL.Entities;
+using ArzonOL.Enums;
 using ArzonOL.Services.AuthService.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -27,7 +28,7 @@ public class LoginService : ILoginService
         _configuration = configuration;
     }
 
-    public string CreateJwtToken(string username, string password, string role)
+    public string CreateJwtToken(string username, string password, string email, string role)
     {
        _logger.LogInformation("Creating JWT token for user {username}", username);
 
@@ -41,7 +42,8 @@ public class LoginService : ILoginService
        {
            new Claim(ClaimTypes.Name, username),
            new Claim("Password", password),
-           new Claim(ClaimTypes.Role, role)
+           new Claim(ClaimTypes.Role, role),
+           new Claim(ClaimTypes.Email, email)
        };
        
        var tokenHandler = new JwtSecurityTokenHandler();
@@ -105,30 +107,41 @@ public class LoginService : ILoginService
             return string.Empty;
         }
 
-        return CreateJwtToken(username, password, roles[0]);
+        var result =  CreateJwtToken(username, password, user.Email!, roles[0]);
+
+        if(string.IsNullOrEmpty(result))
+        return IdentityResult.Failed(new IdentityError{Code = EErrorType.ServerError.ToString(), Description = "Aniything went wrong"}).ToString();
+
+        return result;
     }
 
-    public async Task<IdentityResult> LogOutAsync(string username, string password)
+    public async Task<IdentityResult> LogOutAsync(Guid id, string password)
     {
-        _logger.LogInformation("Logging out user {username}", username);
+        _logger.LogInformation("Logging out user with id"+ id.ToString());
 
-        if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        if(Guid.Empty == id)
+        {
+            _logger.LogWarning("password is empty");
+            return IdentityResult.Failed(new IdentityError{Code = EErrorType.ClientError.ToString(), Description = "Username yoki password bo'sh"});
+        }
+
+        if(Guid.Empty == id)
         {
             _logger.LogWarning("Username or password is empty");
-            return IdentityResult.Failed(new IdentityError{Code = "Logout", Description = "Username yoki password bo'sh"});
+            return IdentityResult.Failed(new IdentityError{Code = EErrorType.ServerError.ToString(), Description = "Id can't be null here"});
         }
         
         try
         {
-            var identityUser = await _userManager.FindByNameAsync(username);
+            var identityUser = await _userManager.FindByIdAsync(id.ToString());
             
             if(identityUser is null)
-            return IdentityResult.Failed(new IdentityError{Code = "Logout", Description = "Bunday user yuq"});
+            return IdentityResult.Failed(new IdentityError{Code = EErrorType.ClientError.ToString(), Description = "Bunday user topilmadi"});
 
             await _userManager.DeleteAsync(identityUser);
             
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User {username} logged out", username);
+            _logger.LogInformation("User {password} logged out", password);
 
             return IdentityResult.Success;
         }

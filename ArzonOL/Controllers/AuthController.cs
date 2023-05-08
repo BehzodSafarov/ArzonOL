@@ -1,4 +1,5 @@
 using ArzonOL.Dtos.AuthDtos;
+using ArzonOL.Enums;
 using ArzonOL.Services.AuthService.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,44 +22,110 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginDto loginDto)
     {
-        var token = await _loginService.LogInAsync(loginDto.UserName!, loginDto.Password!);
+        try
+        {
+            var token = await _loginService.LogInAsync(loginDto.UserName!, loginDto.Password!);
 
-        if (string.IsNullOrEmpty(token))
-            return BadRequest("Username or password is incorrect");
+            if (string.IsNullOrEmpty(token))
+                return BadRequest("Username or password is incorrect");
 
-        return Ok(token);
+            return Ok(token);
+        }
+        catch (System.Exception e)
+        {
+            
+            throw new Exception(e.Message);
+        }
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(RegisterDto registerDto)
     {   
-        var result = await _registerService.RegisterAsync(registerDto.UserName!, registerDto.Password!, "User", registerDto.Email!);
+        try
+        {
+            var result = await _registerService.RegisterAsync(registerDto.UserName!, registerDto.Password!, "User", registerDto.Email!);
 
-        if (!result.Succeeded)
-            return BadRequest(result.Errors);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (System.Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
     [HttpPost("merchant/register")]
     public async Task<IActionResult> RegisterMerchantAsync(RegisterDto registerDto)
     {
-        var result = await _registerService.RegisterAsync(registerDto.UserName!, registerDto.Password!, "Merchand", registerDto.Email!);
+        try
+        {
+            var result = await _registerService.RegisterAsync(registerDto.UserName!, registerDto.Password!, "Merchand", registerDto.Email!);
 
-        if (!result.Succeeded)
-            return BadRequest(result.Errors);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
 
-        return Ok();
+            return Ok(result.Succeeded);
+        }
+        catch (System.Exception e )
+        {
+            throw new Exception(e.Message);
+        }
     }
 
     [HttpPost("logout")]
-    public async Task<IActionResult> Logout(LoginDto loginDto)
+    public async Task<IActionResult> Logout(LogOutDto loginDto)
     {
-        var result = await _loginService.LogOutAsync(loginDto.UserName!, loginDto.Password!);
-        
-        if(!result.Succeeded)
-           return BadRequest(result.Errors);
-           
-        return Ok(result);
+        try
+        {
+            var result = await _loginService.LogOutAsync(loginDto.Id, loginDto.Password!);
+            
+            if(!result.Succeeded)
+            return BadRequest(result.Errors);
+            
+            return Ok(result.Succeeded);
+        }
+        catch (System.Exception e)
+        {
+            
+            throw new Exception(e.Message);
+        }
     }
+
+    [HttpPost("changePassword")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+      try
+      {
+        if(Guid.Empty == changePasswordDto.Id)
+        return BadRequest(IdentityResult.Failed(new IdentityError{Code = EErrorType.ServerError.ToString(), Description = "Id can't be null here"}));
+        
+        return Ok(await _registerService.ChangePasswordAsync(changePasswordDto.Id, changePasswordDto.OldPassword!, changePasswordDto.NewPassword!));
+      }
+      catch (System.Exception e)
+      {
+        throw new Exception(e.Message);
+      }
+    }
+
+    [HttpPost("changeUsername")]
+    public async Task<IActionResult> ChangeUserName(ChangeUsernameDto changeUsernameDto)
+    {
+        try
+        {
+            var result = await _registerService.ChangeUsernameAsync(changeUsernameDto.Id, changeUsernameDto.NewUserName!);
+
+            if(!result.Succeeded)
+            return BadRequest(result.Errors);
+
+            return Ok(result.Succeeded);
+        }
+        catch (System.Exception e)
+        {
+            
+            throw new Exception(e.Message);
+        }
+    }
+
 }

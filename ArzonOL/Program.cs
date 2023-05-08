@@ -16,7 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+   options.UseLazyLoadingProxies();
+});
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ILoginService, LoginService>();
@@ -59,6 +62,7 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireLowercase = false;
+            options.User.RequireUniqueEmail = true;
         })
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -109,10 +113,10 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ErrorHandlerMiddleware>();
-app.MapControllers();
 
 await InitializeDataService.CreateDefaultRoles(app);
 await InitializeDataService.CreateDefaultAdmin(app);
 await InitializeDataService.CreateDefaultUser(app);
 await InitializeDataService.CreateDefaultMerchand(app);
+app.MapControllers();
 app.Run();
