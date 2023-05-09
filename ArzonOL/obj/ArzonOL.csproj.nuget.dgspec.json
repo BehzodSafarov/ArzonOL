@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
+    "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {}
   },
   "projects": {
-    "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
+    "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "projectUniqueName": "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
         "projectName": "ArzonOL",
-        "projectPath": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
-        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ArzonOL\\ArzonOL\\ArzonOL\\obj\\",
+        "projectPath": "E:\\ArzonOL\\ArzonOL\\ArzonOL.csproj",
+        "packagesPath": "C:\\Users\\Assalomu Alaykum\\.nuget\\packages\\",
+        "outputPath": "E:\\ArzonOL\\ArzonOL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Assalomu Alaykum\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Mapster": {
+              "target": "Package",
+              "version": "[7.3.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.5, )"
